@@ -1,0 +1,56 @@
+<!-- templates/news2u/article_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - All Articles
+{% endblock %}
+
+{% block content %}
+<h2>{{ article.article_title }}</h2>
+    <p><strong>Status:</strong> {{ article.get_status_display }}</p>
+    <p><strong>Created:</strong> {{ article.submitted_at }}</p>
+
+       <div class="article-container">
+            {% if article.article_photo %}
+                <img src="{{ article.article_photo.url }}"
+                alt="{{ article.article_title }}"
+                class="image-container">
+            {% endif %}
+
+            <h2>{{ article.article_title }}</h2>
+            {{ article.article_content|linebreaks }}
+        </div>
+        {% if article.status == 'draft' or article.status == 'revise'%}
+            <div class="article-actions">
+                <a href="{% url 'edit_article' article.id %}"
+                class="alt-button">Edit Article</a>
+                <a href="{% url 'journalist_dashboard' %}"
+                class="alt-button">Save & finish later</a>
+
+                <h3>Submit for Editor Review?</h3>
+                    <a href="{% url 'select_editor' article.id %}"
+                    class="alt-button">Continue</a>
+                    <br/>
+            </div>
+        {% elif article.status == 'approved' %}
+            <p>This article has been approved by the editor.</p>
+        {% elif article.status == 'declined' %}
+            <p>This article requires revisions as per the editor's feedback.</p>
+        {% else %}
+    {% endif %}
+
+    {% if article.editor_comments %}
+        <div class="editor-feedback">
+            <h4>Editor Feedback:</h4>
+            <p>{{ article.editor_comments|linebreaks }}</p>
+        </div>
+    {% endif %}
+    <br/>
+    <div>
+        <a href="{% url 'delete_article' article.id %}">
+            Delete Article</a>
+    </div>
+    <br/>
+    <a href="{% url 'view_submitted_articles' %}">Back to Submissions</a>
+{% endblock %}

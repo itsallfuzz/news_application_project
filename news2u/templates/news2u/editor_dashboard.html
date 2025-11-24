@@ -1,0 +1,62 @@
+<!-- templates/news2u/editor_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Editor Dashboard
+{% endblock %}
+
+{% block content %}
+    <h2>Editor Dashboard</h2>
+        <h3>Current Stats</h3>
+    <ul>
+        <li>Total Published Articles: {{ total_articles|default:"0" }}</li>
+        <li>Total Published Newsletters: {{ total_newsletters|default:"0" }}</li>
+
+    <h3>MENU </h3>
+    <div class="dashboard-menu">
+        <ul>
+            <li>
+                <a href="{% url 'view_requests' %}">
+                View Requests ({{ edit_requests }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_accepted_articles' %}">
+                Accepted Articles ({{ accepted_requests }})
+                </a>
+            <li>
+                <a href="{% url 'my_published_articles' %}">
+                Edited & Published Articles
+                ({{ total_articles }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'my_published_newsletters' %}">
+                Edited & Published Newsletters
+                ({{ total_newsletters }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'draft_articles' %}">
+                Articles sent back for Revision
+                ({{ declined_requests }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'draft_newsletters' %}">
+                    View Declined Newsletters
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_journalists' %}">
+                View Journalists I worked with
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_publishers' %}">
+                View Publication Houses I worked with
+            </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

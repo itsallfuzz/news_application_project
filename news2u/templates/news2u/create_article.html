@@ -1,0 +1,35 @@
+<!-- templates/news2u/create_article.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Create Article
+{% endblock %}
+
+{% block content %}
+<h2>Create New Article</h2>
+
+    <p>
+        <strong>Note:</strong>
+        All articles are subject to approval by an editor.
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br/>
+        <button type="submit" class="button">Create Article</button>
+        <a href="{% url 'journalist_dashboard' %}" class="button">Cancel</a>
+    </form>
+
+{% endblock %}

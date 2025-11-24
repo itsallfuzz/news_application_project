@@ -1,0 +1,40 @@
+<!-- templates/news2u/view_accepted_newsletters.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Accepted Newsletters
+{% endblock %}
+
+{% block content %}
+    <h2>Newsletters Accepted for Publication</h2>
+    {% if newsletters %}
+        <ul class="request-list">
+            <li>
+            {% for newsletter in newsletters %}
+                    <div class="article-item">
+                        <h3><a href="{% url 'view_edited_newsletter' newsletter.id %}">
+                            {{ newsletter.newsletter_title }}</a></h3>
+                        <p>Written By: {{ newsletter.journalist.journalist_name }}</p>
+                        <p>Edited by: {{ newsletter.editor.editor_name }}</p>
+                        <p>Status: {{ newsletter.get_status_display }}</p>
+                    </div>
+                {% empty %}
+                    <p>No newsletters have been accepted for publication yet.</p>
+                {% endfor %}
+            </li>
+        </ul>
+    {% else %}
+        <p>No newsletters have been accepted for publication yet.</p>
+    {% endif %}
+
+    {% if is_editor %}
+        <p>
+            <a href="{% url 'view_requests' %}">Back to Dashboard</a>
+        </p>
+    {% elif is_journalist %}
+        <p>
+            <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+        </p>
+    {% endif %}
+{% endblock %}

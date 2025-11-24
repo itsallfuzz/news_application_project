@@ -1,0 +1,54 @@
+<!-- templates/news2u/view_requests.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - View Requests
+{% endblock %}
+
+{% block content %}
+    <h2>Editor Review Requests</h2>
+    <h3>Articles Awaiting Your Review</h3>
+    {% if articles %}
+        <ul class="request-list">
+            {% for article in articles %}
+                <li>
+                    <h4>
+                        <a
+                        href="{% url 'review_article' article.id %}">
+                        {{ article.article_title }}</a>
+                    </h4>
+                    <p>Submitted at:
+                        {{ article.submitted_at|date:"F j, Y, g:i a" }}
+                    </p>
+                    <p>Written By: {{ article.journalist.journalist_name }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    <h3>Newsletters Awaiting Your Review</h3>
+    {% if newsletters %}
+        <ul class="request-list">
+            {% for newsletter in newsletters %}
+                <li>
+                    <h4>
+                        <a
+                        href="{% url 'review_newsletter' newsletter.id %}">
+                        {{ newsletter.newsletter_title }}</a>
+                    </h4>
+                    <p>Submitted at:
+                        {{ newsletter.submitted_at|date:"F j, Y, g:i a" }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No review requests available.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+    </p>
+{% endblock %}

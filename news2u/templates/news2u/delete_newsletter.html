@@ -1,0 +1,28 @@
+<!-- templates/news2u/delete_newsletter.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Delete Newsletter
+{% endblock %}
+
+{% block content %}
+    <div class="newsletter-detail">
+        <h2>{{ newsletter.newsletter_title }}</h2>
+        <p>
+            By {{ newsletter.journalist.user.get_full_name }} |
+            Published on {{ newsletter.published_at|date:"F j, Y, g:i a" }}
+        </p>
+        <div class="newsletter-content">
+            {{ newsletter.newsletter_content|linebreaks }}
+        </div>
+            <hr>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this newsletter? This action cannot be undone.</p>
+            <form method="post" action="{% url 'delete_newsletter' newsletter.id %}">
+                {% csrf_token %}
+                <button type="submit" class="button delete">Delete Newsletter</button>
+                <a href="{% url 'newsletter_detail' newsletter.id %}" class="button">Cancel</a>
+            </form>
+    </div>
+{% endblock %}

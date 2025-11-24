@@ -1,0 +1,62 @@
+<!-- templates/news2u/my_published_articles.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - My Articles
+{% endblock %}
+
+{% block content %}
+    <h2>{{ role_label }}</h2>
+    <div style="text-align: center;">
+        {% if is_publisher %}
+            <p>As a publisher, you can view all articles published under
+                your publication house.
+            </p>
+        {% elif is_journalist %}
+            <p>As a journalist, you can view all articles you have
+                published.
+            </p>
+        {% elif is_editor %}
+            <p>As an editor, you can view all articles you have edited and
+                published.
+            </p>
+        {% elif is_reader %}
+            <p>As a reader, you can view all articles from your
+                subscriptions.
+            </p>
+    {% endif %}
+    </div>
+
+    <h2>List of Articles</h2>
+    {% if articles %}
+        <ul class="request-list">
+            <li>
+            {% for article in articles %}
+                    <div class="article-item">
+                        <h3><a href="{% url 'view_published_article' article.id %}">
+                            {{ article.article_title }}</a></h3>
+                        <p>Written By: {{ article.journalist.journalist_name }}</p>
+                        <p>Edited by: {{ article.editor.editor_name }}</p>
+                        <p>Status: {{ article.get_status_display }}</p>
+                    </div>
+                {% empty %}
+                    <p>No articles have been accepted for publication yet.</p>
+                {% endfor %}
+            </li>
+        </ul>
+    {% else %}
+        <p>No articles have been accepted for publication yet.</p>
+    {% endif %}
+
+    {% if is_publisher %}
+        <a href="{% url 'publisher_dashboard' %}">Back to Dashboard</a>
+    {% elif is_editor %}
+        <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+    {% elif is_reader %}
+        <a href="{% url 'reader_dashboard' %}">Back to Dashboard</a>
+    {% elif is_journalist %}
+    <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+    {% endif %}
+{% endblock %}

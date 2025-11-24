@@ -1,0 +1,25 @@
+<!-- templates/news2u/accept_newsletter.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Accept Newsletter
+{% endblock %}
+
+{% block content %}
+    <h2>Accept Newsletter</h2>
+    <p>Are you sure you want to accept the newsletter titled "<strong>
+        {{ newsletter.newsletter_title }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+
+        <button
+        type="submit"
+        name="action"
+        value="approve"
+        class="alt-button">Yes, Accept Newsletter</button>
+        <a href="{% url 'view_requests' %}" class="button">Cancel</a>
+    </form>
+{% endblock %}

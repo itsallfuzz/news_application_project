@@ -1,0 +1,138 @@
+<!-- templates/news2u/register.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Home
+{% endblock %}
+
+{% block content %}
+    <h2>Welcome to News2U!</h2>
+    <p style="text-align: center;">Your Daily News Source</p>
+    <h3>Please select your role below</h3>
+    <div>
+        <br/>
+    </div>
+    <!-- Add more homepage content here -->
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-5">
+                    <div class="image-container">
+                        <img
+                        src="{% static 'news2u/images/publication-house.jpeg' %}"
+                        alt="Publisher">
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="registration-card">
+                        <h4>Publication House (Publisher)</h4>
+                        <p>As a Publication House, you will manage a news publication
+                            and oversee a team of journalists and editors. You'll
+                            coordinate content creation, build your subscriber base,
+                            and ensure quality standards across all articles and
+                            newsletters published under your name. Publishers have
+                            full visibility of their team's work and publication
+                            analytics. All publisher registrations undergo an
+                            administrator approval process to verify the legitimacy of
+                            your publication before you can access your dashboard.
+                        </p>
+                            <a
+                            href="{% url 'register_publisher' %}"
+                            class="alt-button">Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Editor Row -->
+            <div class="row mb-5">
+                <div class="col-md-5">
+                    <div class="image-container">
+                        <img
+                        src="{% static 'news2u/images/editor-pic.jpeg' %}"
+                        alt="Editor">
+                    </div>
+                </div>
+            <div class="col-md-7">
+                <div class="registration-card">
+                    <h4>Editor</h4>
+                    <p>As an Editor, you play a crucial role in maintaining content
+                        quality and editorial standards. You'll review, approve, and
+                        edit articles and newsletters submitted by journalists
+                        before they're published or sent to subscribers. Editors
+                        can also delete inappropriate content and provide feedback
+                        to writers. Your approval is required before any content
+                        reaches our readers. All editor registrations are subject
+                        to administrator approval to ensure you have the appropriate
+                        experience and qualifications for this role.
+                    </p>
+                        <a
+                        href="{% url 'register_editor' %}"
+                        class="alt-button">Register
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <!-- Journalist Row -->
+        <div class="row mb-5">
+            <div class="col-md-5">
+                <div class="image-container">
+                    <img
+                    src="{% static 'news2u/images/journalist-pic.jpeg' %}"
+                    alt="Journalist">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="registration-card">
+                    <h4>Journalist</h4>
+                    <p>As a Journalist, you'll have the ability to write and submit
+                        news articles and create newsletters for our readers. You
+                        can publish independently or work under established
+                        publication houses. Once your articles are approved by an
+                        editor, they'll be automatically distributed to your
+                        subscribers and shared on our platform. You'll build your
+                        own subscriber base and establish your reputation as a
+                        trusted news source. All journalist registrations require
+                        administrator approval to verify your credentials and
+                        writing experience.
+                        </p>
+                        <a
+                        href="{% url 'register_journalist' %}"
+                        class="alt-button">Register
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <!-- Reader Row -->
+        <div class="row mb-5">
+            <div class="col-md-5">
+                <div class="image-container">
+                    <img
+                    src="{% static 'news2u/images/reader-pic.jpeg' %}"
+                    alt="Reader"
+                    style="object-position: center top">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="registration-card">
+                <h4>Reader</h4>
+                <p>As a Reader, you'll gain access to quality news content from
+                    independent journalists and established publications. You
+                    can subscribe to your favorite journalists and publication
+                    houses to receive their latest articles and newsletters
+                    directly via email. Browse, read, and stay informed with
+                    curated content tailored to your interests. Reader accounts
+                    are activated immediately upon registration—no approval
+                    process required. Start exploring news content right away!
+                </p>
+                    <a
+                    href="{% url 'register_reader' %}"
+                    class="alt-button">Register
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

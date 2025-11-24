@@ -1,0 +1,54 @@
+<!-- templates/news2u/view_article_publication_requests.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - View Requests
+{% endblock %}
+
+{% block content %}
+    <h2>Publication House Requests</h2>
+    <h3>Articles Awaiting Approval for Publication</h3>
+    {% if articles %}
+        <ul class="request-list">
+            {% for article in articles %}
+                <li>
+                    <h4>
+                        <a
+                        href="{% url 'view_edited_article' article.id %}">
+                        {{ article.article_title }}</a>
+                    </h4>
+                    <p>
+                        Written by: {{ article.journalist.journalist_name }}
+                    </p>
+                    <p>Submitted at:
+                        {{ article.submitted_at|date:"F j, Y, g:i a" }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    <h3>Newsletters Awaiting Your Review</h3>
+    {% elif newsletters %}
+        <ul class="request-list">
+            {% for newsletter in newsletters %}
+                <li>
+                    <h4>
+                        <a
+                        href="{% url 'view_edited_newsletter' newsletter.id %}">
+                        {{ newsletter.newsletter_title }}</a>
+                    </h4>
+                    <p>Submitted at:
+                        {{ newsletter.submitted_at|date:"F j, Y, g:i a" }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No review requests available.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'publisher_dashboard' %}">Back to Requests</a>
+    </p>
+{% endblock %}

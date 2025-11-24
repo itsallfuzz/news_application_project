@@ -1,0 +1,46 @@
+<!-- templates/news2u/view_my_publishers.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - My Publishers
+{% endblock %}
+
+{% block content %}
+    <h2>My Publishers</h2>
+    {% if publishers %}
+        <ul class="editor-list">
+            {% for publisher in publishers %}
+                <li>
+                    <h4>{{ publisher.publisher_name }}</h4>
+                    <img src="{{ publisher.publisher_logo.url }}"
+                    alt="Publisher Logo"
+                    class="publisher-logo"/>
+                    <p>Description: {{ publisher.publisher_description }}</p>
+                        {% if publisher.associated_publishers %}
+                        <ul>
+                            {% for associated_publisher in publisher.associated_publishers %}
+                            <li>{{ associated_publisher.publisher_name }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Publication Houses found.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'view_all_publishers' %}">View All Publishers</a>
+    </p>
+    <p>
+        {% if is_journalist %}
+        <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+        {% elif is_editor %}
+        <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+        {% endif %}
+    </p>
+{% endblock %}

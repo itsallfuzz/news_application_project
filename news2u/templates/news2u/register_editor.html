@@ -1,0 +1,24 @@
+<!-- templates/news2u/register_editor.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Editor Registration
+{% endblock %}
+
+{% block content %}
+    <h2>Welcome to News2U!</h2>
+    <h3>Editor Registration</h3>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br/>
+            <button type="submit" class="button">
+                Register as Editor
+            </button>
+        </form>
+    </div>
+{% endblock %}

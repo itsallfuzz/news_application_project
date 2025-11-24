@@ -1,0 +1,15 @@
+<!-- templates/news2u/article_submit_success.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Submitted
+{% endblock %}
+
+{% block content %}
+<div class="success-message">
+    <h2>Article Submitted Successfully!</h2>
+    <p>Your article has been submitted and is awaiting editor approval.</p>
+    <a href="{% url 'journalist_dashboard' %}" class="button">Back to Dashboard</a>
+</div>
+{% endblock %}

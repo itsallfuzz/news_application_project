@@ -1,0 +1,42 @@
+<!-- templates/news2u/review_newsletter.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Review Newsletter
+{% endblock %}
+
+{% block content %}
+    <h2>Review Newsletter</h2>
+    <p><strong>By:</strong> {{ newsletter.journalist.journalist_name }}</p>
+    <p><strong>Created:</strong> {{ newsletter.submitted_at }}</p>
+    <h3>{{ newsletter.newsletter_title }}</h3>
+    <p>{{ newsletter.newsletter_content }}</p>
+
+
+        {% if newsletters.articles.exists %}
+            <h4>Articles Included:</h4>
+            <ul>
+                {% for article in newsletter.articles.all %}
+                    <li>{{ article.article_title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    <form method="post">
+        {% csrf_token %}
+
+        <br/>
+        <button type="submit"
+                formaction="{% url 'accept_newsletter' newsletter.id %}"
+                class="alt-button">
+                Approve
+        </button>
+        <a href="{% url 'edit_newsletter' newsletter.id %}" class="button">
+                Read and/or Edit
+            </a>
+    </form>
+
+    <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

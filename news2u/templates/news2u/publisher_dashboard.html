@@ -1,0 +1,61 @@
+<!-- templates/news2u/publisher_dashboard.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Publisher Dashboard
+{% endblock %}
+
+{% block content %}
+    <h2>Publisher Dashboard</h2>
+    <h3>Current Stats</h3>
+    <ul>
+        <li>Total Editors: {{ total_editors.count|default:"0" }}</li>
+        <li>Total Journalists: {{ total_journalists.count|default:"0" }}</li>
+        <li>Total Subscribers: {{ total_subscribers.count|default:"0" }}</li>
+
+    <h3>MENU </h3>
+    <div class="dashboard-menu">
+        <ul>
+            <li>
+                <a href="{% url 'create_publisher_newsletter' %}">
+                Create Newsletter
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'draft_newsletters' %}">
+                Draft Newsletters
+                ({{ total_draft_newsletters }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_article_publication_requests' %}">
+                View Article Publication Requests
+                ({{ total_requests }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'my_published_articles' %}">
+                View Published Articles
+                ({{ total_published_articles }})
+            </a>
+            </li>
+                <a href="{% url 'my_published_newsletters' %}">
+                View Published Newsletters
+                ({{ total_newsletters }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_editors' %}">
+                View My Editors
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_journalists' %}">
+                View My Journalists
+            </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

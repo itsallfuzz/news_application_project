@@ -1,0 +1,47 @@
+<!-- templates/news2u/reader_dashboard.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Reader Dashboard
+{% endblock %}
+
+{% block content %}
+    <h2>Reader Dashboard</h2>
+    <h3>MENU</h3>
+
+    <!-- Dashboard Stats -->
+    <div class="stats">
+        <p>New Articles Available: {{ total_articles }}</p>
+        <p>New Newsletters Available: {{ total_newsletters }}</p>
+        <p>Following {{ total_journalists }} journalists and {{ total_publishers }} publishers</p>
+    </div>
+
+
+    <div class="dashboard-menu">
+        <ul>
+            <li>
+                {% if user.customuser.subscribed_journalists.exists or user.customuser.subscribed_publishers.exists %}
+                    <a href="{% url 'my_published_articles' %}">My Articles</a>
+                {% else %}
+                    <p>You haven't subscribed to any Articles yet</p>
+                    <a href="{% url 'manage_subscriptions' %}">Subscribe Now</a>
+                {% endif %}
+            </li>
+            <li>
+                {% if user.customuser.subscribed_publishers.exists or user.customuser.subscribed_journalists.exists %}
+                    <a href="{% url 'my_published_newsletters' %}">My Newsletters</a>
+                {% else %}
+                    <p>You haven't subscribed to any Newsletters yet</p>
+                    <a href="{% url 'manage_subscriptions' %}">Subscribe Now</a>
+                {% endif %}
+            </li>
+            <br/>
+            <li>
+                <a href="{% url 'manage_subscriptions' %}">Manage Subscriptions</a>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

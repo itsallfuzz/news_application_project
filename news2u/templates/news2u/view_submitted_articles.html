@@ -1,0 +1,40 @@
+<!-- templates/news2u/view_submitted_articles.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Submitted Articles
+{% endblock %}
+
+{% block content %}
+<h2>Submitted Articles for Review</h2>
+    {% if articles %}
+        <ul class="article-list">
+            {% for article in articles %}
+                <li>
+                    <h4>
+                        <a
+                        href="{% url 'article_detail' article.id %}">
+                        {{ article.article_title }}</a>
+                    </h4>
+                    <p>
+                        <strong>
+                        Status: {{ article.get_status_display }}
+                        </strong>
+                    </p>
+                    <p>Editor: {{ article.editor.editor_name }}</p>
+                    <p>Submitted On:
+                        {{ article.submitted_at|date:"F j, Y, g:i a" }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No submitted articles available.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+    </p>
+{% endblock %}

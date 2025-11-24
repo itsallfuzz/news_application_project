@@ -1,0 +1,31 @@
+<!-- templates/news2u/select_editor.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Select Editor
+{% endblock %}
+
+{% block content %}
+
+        <h3>Submit for Editor Review</h3>
+        <div class="option">
+            <h4>Select your editor</h4>
+            <p>
+                Articles can only be published after review by an editor.
+                    <div class="article-preview">
+                        <p><strong>" {{ article.article_title }} "</strong></p>
+                        <p>{{ article.article_content }}</p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br/>
+                    <button type="submit" class="button">Submit to Editor</button>
+                <a href="{% url 'home' %}" class="button">Cancel</a>
+            </form>
+
+{% endblock %}

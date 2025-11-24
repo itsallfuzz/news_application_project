@@ -1,0 +1,28 @@
+<!-- templates/news2u/delete_article.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Delete Article
+{% endblock %}
+
+{% block content %}
+    <div class="article-detail">
+        <h2>{{ article.article_title }}</h2>
+        <p>
+            By {{ article.journalist.user.get_full_name }} |
+            Published on {{ article.published_at|date:"F j, Y, g:i a" }}
+        </p>
+        <div class="article-content">
+            {{ article.article_content|linebreaks }}
+        </div>
+            <hr>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this article? This action cannot be undone.</p>
+            <form method="post" action="{% url 'delete_article' article.id %}">
+                {% csrf_token %}
+                <button type="submit" class="button delete">Delete Article</button>
+                <a href="{% url 'article_detail' article.id %}" class="button">Cancel</a>
+            </form>
+    </div>
+{% endblock %}

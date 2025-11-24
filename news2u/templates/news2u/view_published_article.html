@@ -1,0 +1,32 @@
+<!-- templates/news2u/view_published_article.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Published Article
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ article.article_title }}</h2>
+
+    <div class="image-container">
+        {% if article.article_photo %}
+            <img src="{{ article.article_photo.url }}" alt="Article Image"
+            style="max-width: 100%; height: auto;"/>
+        {% endif %}
+    </div>
+    <div class="article-content">
+        <p>
+        <strong>By {{ article.journalist.journalist_name }} |
+        Published on {{ article.published_at|date:"F j, Y, g:i a" }}</strong>
+        {% if article.publisher %}
+            | Published by {{ article.publisher.publisher_name }}
+        {% endif %}
+        </p>
+        <p>{{ article.article_content }}</p>
+    </div>
+    <br/>
+    <a href="{% url 'my_published_articles' %}">Back to All Articles</a>
+{% endblock %}

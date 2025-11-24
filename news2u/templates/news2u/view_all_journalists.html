@@ -1,0 +1,39 @@
+<!-- templates/news2u/view_all_journalists.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - All Journalists
+{% endblock %}
+
+{% block content %}
+    <h2>All Journalists</h2>
+    {% if journalists %}
+        <ul class="editor-list">
+            {% for journalist in journalists %}
+                <li>
+                    <h4>{{ journalist.journalist_name }}</h4>
+                    <img src="{{ journalist.journalist_photo.url }}" alt="Profile Picture" class="profile-picture"/>
+                    <p><strong>Interests: {{ journalist.journalist_interests }}</strong></p>
+                    <p>Bio: {{ journalist.journalist_bio }}</p>
+                        {% if journalist.associated_publishers %}
+                        <ul>
+                            {% for publisher in journalist.associated_publishers %}
+                            <li>{{ publisher.publisher_name }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                    <p>Works independently</p>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No journalists found.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'view_my_journalists' %}">Back</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,58 @@
+<!-- templates/news2u/my_published_newsletters.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - My Newsletters
+{% endblock %}
+
+{% block content %}
+    <h2>{{ role_label }}</h2>
+
+    {% if is_publisher %}
+        <p>As a publisher, you can view all newsletters published under
+            your publication house.
+        </p>
+    {% elif is_journalist %}
+        <p>As a journalist, you can view all newsletters you have
+            published.
+        </p>
+    {% elif is_editor %}
+        <p>As an editor, you can view all newsletters you have edited
+            and published.
+        </p>
+    {% elif is_reader %}
+        <p>As a reader, you can view all newsletters from your
+            subscriptions.
+        </p>
+    {% endif %}
+
+    {% if newsletters %}
+        <ul>
+            {% for newsletter in newsletters %}
+                <li>
+                    <a href="{% url 'newsletter_detail' newsletter.id %}">
+                    <strong>{{ newsletter.newsletter_title }}</strong>
+                </a>
+                    <p>Published on:
+                    {{ newsletter.published_at|date:"F j, Y, g:i a" }}
+                    </p>
+                    <p>Status: {{ newsletter.get_status_display }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No newsletters found.</p>
+    {% endif %}
+
+    {% if is_publisher %}
+        <a href="{% url 'publisher_dashboard' %}">Back to Dashboard</a>
+    {% elif is_editor %}
+        <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+    {% elif is_reader %}
+        <a href="{% url 'reader_dashboard' %}">Back to Dashboard</a>
+    {% elif is_journalist %}
+    <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+    {% endif %}
+{% endblock %}

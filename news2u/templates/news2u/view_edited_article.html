@@ -1,0 +1,65 @@
+<!-- templates/news2u/view_article.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - All Articles
+{% endblock %}
+
+{% block content %}
+<h2>{{ article.article_title }}</h2>
+    <p><strong>Status:</strong> {{ article.get_status_display }}</p>
+    <p><strong>Created:</strong> {{ article.submitted_at }}</p>
+
+       <div class="article-container">
+            {% if article.article_photo %}
+                <img src="{{ article.article_photo.url }}"
+                alt="{{ article.article_title }}"
+                class="image-container">
+            {% endif %}
+
+            <h2>{{ article.article_title }}</h2>
+            {{ article.article_content|linebreaks }}
+        </div>
+
+    {% if article.editor_comments %}
+        <div class="editor-feedback">
+            <h4>Editor Feedback:</h4>
+            <p>{{ article.editor_comments|linebreaks }}</p>
+        </div>
+    {% endif %}
+
+    {% if is_journalist %}
+    
+        <div class="button-container">
+            <a href="{% url 'publish_independent' article.id %}"
+            class="alt-button">Publish Independently
+            </a>
+            <a href="{% url 'submit_to_publisher' article.id %}"
+            class="button">Submit to Publication
+            </a>
+        </div>
+    {% elif is_publisher %}
+        <div class="button-container">
+            <a href="{% url 'publish_by_publisher' article.id %}"
+            class="alt-button">Publish
+            </a>
+        </div>
+    {% endif %}
+    <div>
+        <a href="{% url 'delete_article' article.id %}">
+            Delete Article</a>
+    </div>
+    <br/>
+    {% if is_journalist %}
+        <a href="{% url 'view_accepted_articles' %}">Back to Submissions</a>
+    {% elif is_editor %}
+        <a href="{% url 'view_requests' %}">Back to Submissions</a>
+    {% elif is_publisher %}
+        <a href="{% url 'view_article_publication_requests' %}">
+            Back to Requests</a>
+    {% else %}
+        <a href="{% url 'home' %}">Back to Home</a>
+    {% endif %}
+
+{% endblock %}

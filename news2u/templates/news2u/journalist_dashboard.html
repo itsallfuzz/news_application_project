@@ -1,0 +1,92 @@
+<!-- templates/news2u/journalist_dashboard.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Journalist Dashboard
+{% endblock %}
+
+{% block content %}
+    <h2>Journalist Dashboard</h2>
+
+    <h3>Current Stats</h3>
+    <ul>
+        <li>Total Published Articles: {{ published_articles_count|default:"0" }}</li>
+        <li>Total Published Newsletters: {{ total_newsletters|default:"0" }}</li>
+        <li>Total Subscribers: {{ total_subscribers|default:"0" }}</li>
+
+    <h3>MENU </h3>
+    <div class="dashboard-menu">
+        <ul>
+            <li>
+                <a href="{% url 'create_article' %}">
+                Create Article
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'create_newsletter' %}">
+                Create Newsletter
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'draft_articles' %}">
+                Draft Articles
+                ({{ draft_articles_count }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'draft_newsletters' %}">
+                Draft Newsletters ({{ draft_newsletters_count }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'view_submitted_articles' %}">
+                Articles Awaiting Editor
+                ({{ submitted_articles_count }})
+                and Publisher Review
+                ({{ submitted_to_publisher_count }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'view_submitted_newsletters' %}">
+                Newsletters Awaiting Editor Review
+                ({{ submitted_newsletters_count }})
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'view_accepted_articles' %}">
+                Accepted Articles for Publication
+                ({{ accepted_articles }})
+            </li>
+            <li>
+                <a href="{% url 'my_published_articles' %}">
+                Published Articles
+                ({{ published_articles_count }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_accepted_newsletters' %}">
+                Accepted Newsletters for Publication
+                ({{ accepted_newsletters }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'my_published_newsletters' %}">
+                Published Newsletters
+                ({{ published_newsletters_count }})
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_editors' %}">
+                View My Editors
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'view_my_publishers' %}">
+                View My Publication Houses
+            </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

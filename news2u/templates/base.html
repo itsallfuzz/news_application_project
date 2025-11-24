@@ -1,0 +1,71 @@
+<!-- news2u/templates/base.html -->
+ {% load static %}
+
+ <!DOCTYPE html>
+ <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,
+        initial-scale=1.0" />
+        <title>
+            {% block title %}
+            News2U
+            {% endblock title %}
+        </title>
+        <!-- Add your CSS links or stylesheets here -->
+         <link rel="stylesheet" href="{% static 'news2u/styles.css' %}" />
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>
+                {% block header %}
+                News2U
+                {% endblock header %}
+            </h1>
+            <!-- Add navigation links or other header content here -->
+            <nav>
+                <a href="{% url 'home' %}">Home</a>
+
+                {% if user.is_authenticated %}
+                    <span>Welcome, {{ user.username }}!</span>
+                        {% if user.customuser.role == 'publisher' %}
+                            <a href="{% url 'publisher_dashboard' %}">Publisher Dashboard</a>
+                        {% elif user.customuser.role == 'editor' %}
+                            <a href="{% url 'editor_dashboard' %}">Editor Dashboard</a>
+                            <a href="{% url 'my_published_articles' %}">My Articles</a>
+                            <a href="{% url 'my_published_newsletters' %}">My Newsletters</a>
+                        {% elif user.customuser.role == 'journalist' %}
+                            <a href="{% url 'journalist_dashboard' %}">Journalist Dashboard</a>
+                            <a href="{% url 'my_published_articles' %}">My Articles</a>
+                            <a href="{% url 'my_published_newsletters' %}">My Newsletters</a>
+                        {% elif user.customuser.role == 'reader' %}
+                            <a href="{% url 'reader_dashboard' %}">Reader Dashboard</a>
+                            <a href="{% url 'my_published_articles' %}">My Articles</a>
+                            <a href="{% url 'my_published_newsletters' %}">My Newsletters</a>
+                        {% endif %}
+                        <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+    </nav>
+        </header>
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer>
+            2025 News2U. All rights reserved.
+        </footer>
+    </body>
+</html>

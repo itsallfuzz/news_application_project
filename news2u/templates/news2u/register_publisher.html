@@ -1,0 +1,42 @@
+<!-- templates/news2u/register_publisher.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Publisher Registration
+{% endblock %}
+
+{% block content %}
+    <h2>Welcome to News2U!</h2>
+    <h3>Publisher Registration</h3>
+
+    <!-- Display messages (success/error) -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Display form errors -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Please fix the following errors:</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br/>
+            <button type="submit" class="button">
+                Register as Publisher
+            </button>
+        </form>
+    </div>
+{% endblock %}

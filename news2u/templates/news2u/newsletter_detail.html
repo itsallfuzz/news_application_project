@@ -1,0 +1,86 @@
+<!-- templates/news2u/newsletter_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - All Newsletters
+{% endblock %}
+
+{% block content %}
+<h2>{{ newsletter.newsletter_title }}</h2>
+    <p><strong>Status:</strong> {{ newsletter.get_status_display }}</p>
+    <p><strong>Created:</strong> {{ newsletter.submitted_at }}</p>
+
+       <div class="newsletter-container">
+            {% if newsletter.newsletter_photo %}
+                <img src="{{ newsletter.newsletter_photo.url }}"
+                alt="{{ newsletter.newsletter_title }}"
+                class="image-container">
+            {% endif %}
+
+            <h4>{{ newsletter.newsletter_title }}</h4>
+            {{ newsletter.newsletter_content|linebreaks }}
+            <h4>Included Articles:</h4>
+            <ul>
+                {% for article in newsletter.articles.all %}
+                    <li>
+                        <h5><a href="{% url 'view_published_article' article.id %}">
+                            {{ article.article_title }}</a></h5>
+                        <p>Written By:
+                            {{ article.journalist.journalist_name }}
+                        </p>
+                    </li>
+                {% empty %}
+                    <p>No articles included in this newsletter.</p>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if newsletter.status == 'draft' %}
+            <div class="newsletter-actions">
+                <a href="{% url 'edit_newsletter' newsletter.id %}"
+                class="button">Edit Newsletter</a>
+                {% if is_journalist %}
+                <a href="{% url 'journalist_dashboard' %}"
+                    class="button">Save & finish later</a>
+                {% elif is_publisher %}
+                <a href="{% url 'publisher_dashboard' %}"
+                    class="button">Save & finish later</a>
+                {% endif %}
+            </div>
+            <br/>
+                <h3 style="text-align: left;">Submit for Editor Review?</h3>
+                    <a href="{% url 'select_editor_newsletter' newsletter.id %}"
+                    class="alt-button">Continue</a>
+                    <br/>
+
+        {% elif newsletter.status == 'approved' %}
+            <p>This newsletter has been approved by the editor.</p>
+        {% elif newsletter.status == 'declined' %}
+            <p>This newsletter requires revisions as per the editor's feedback.</p>
+        {% else %}
+    {% endif %}
+
+    {% if newsletter.editor_comments %}
+        <div class="editor-feedback">
+            <h4>Editor Feedback:</h4>
+            <p>{{ newsletter.editor_comments|linebreaks }}</p>
+        </div>
+    {% endif %}
+    <br/>
+    <div>
+        <a href="{% url 'delete_newsletter' newsletter.id %}">
+            Delete Newsletter</a>
+    </div>
+    <br/>
+    </div>
+    <br/>
+    {% if is_journalist %}
+        <a href="{% url 'view_submitted_newsletters' %}">Back to Submissions</a>
+    {% elif is_editor %}
+        <a href="{% url 'view_requests' %}">Back to Requests</a>
+    {% elif is_publisher %}
+        <a href="{% url 'publisher_dashboard' %}">Back to Dashboard</a>
+    {% else %}
+    <a href="{% url 'view_submitted_newsletters' %}">Back to Submissions</a>
+    {% endif %}
+{% endblock %}

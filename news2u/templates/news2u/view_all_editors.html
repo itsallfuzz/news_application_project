@@ -1,0 +1,39 @@
+<!-- templates/news2u/view_all_editors.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - All Editors
+{% endblock %}
+
+{% block content %}
+    <h2>All Editors</h2>
+    {% if editors %}
+        <ul class="editor-list">
+            {% for editor in editors %}
+                <li>
+                    <h4>{{ editor.editor_name }}</h4>
+                    <img src="{{ editor.editor_photo.url }}" alt="Profile Picture" class="profile-picture"/>
+                    <p><strong>Interests: {{ editor.editor_interests }}</strong></p>
+                    <p>Bio: {{ editor.editor_bio }}</p>
+                        {% if editor.associated_publishers %}
+                        <ul>
+                            {% for publisher in editor.associated_publishers %}
+                            <li>{{ publisher.publisher_name }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                    <p>Works independently</p>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No editors found.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'view_my_editors' %}">Back</a>
+    </p>
+{% endblock %}

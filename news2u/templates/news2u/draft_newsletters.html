@@ -1,0 +1,36 @@
+<!-- templates/news2u/draft_newsletters.html -->
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Draft Newsletters
+{% endblock %}
+
+{% block content %}
+<h2>Draft Newsletters</h2>
+
+    {% if newsletters %}
+        <ul class="newsletter-list">
+            {% for newsletter in newsletters %}
+                <li>
+                    <h3><a href="{% url 'newsletter_detail' newsletter.id %}">
+                        {{ newsletter.newsletter_title }}</a></h3>
+                    <p>Status: {{ newsletter.get_status_display }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No draft newsletters available.</p>
+    {% endif %}
+
+    {% if is_journalist %}
+        <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+    {% elif is_publisher %}
+        <a href="{% url 'publisher_dashboard' %}">Back to Dashboard</a>
+    {% elif is_editor %}
+        <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+<!-- templates/news2u/newsletter_submit_success.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Submitted
+{% endblock %}
+
+{% block content %}
+<div class="success-message">
+    <h2>Newsletter Submitted Successfully!</h2>
+    <p>
+        Your newsletter has been submitted and is awaiting editor
+        approval.
+    </p>
+    {% if is_journalist %}
+    <a href="{% url 'journalist_dashboard' %}" class="button">
+        Back to Dashboard
+    </a>
+    {% elif is_publisher %}
+    <a href="{% url 'publisher_dashboard' %}" class="button">
+        Back to Dashboard
+    </a>
+    {% endif %}
+</div>
+{% endblock %}

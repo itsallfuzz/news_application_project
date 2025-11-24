@@ -1,0 +1,57 @@
+<!-- templates/news2u/draft_articles.html -->
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Draft Articles
+{% endblock %}
+
+{% block content %}
+
+    {% if is_journalist %}
+        <h2>Your Draft Articles</h2>
+
+        {% if articles %}
+            <ul class="article-list">
+                {% for article in articles %}
+                    <li>
+                        <h3><a href="{% url 'article_detail' article.id %}">
+                            {{ article.article_title }}</a></h3>
+                        <p>Status: {{ article.get_status_display }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No draft articles available.</p>
+        {% endif %}
+
+        <p>
+            <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+        </p>
+
+    {% elif is_editor %}
+        <h2>Articles sent back for revision</h2>
+
+        {% if articles %}
+            <ul class="article-list">
+                {% for article in articles %}
+                    <li>
+                        <h3>{{ article.article_title }}</h3>
+                        <p>Written By: {{ article.journalist.journalist_name }}</p>
+                        <p>Status: {{ article.get_status_display }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No articles sent back for revision.</p>
+        {% endif %}
+
+        <p>
+            <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+        </p>
+    {% endif %}
+
+{% endblock %}

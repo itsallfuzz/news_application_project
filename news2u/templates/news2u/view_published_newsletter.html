@@ -1,0 +1,19 @@
+<!-- templates/news2u/view_published_newsletter.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Published Newsletter
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ newsletter.newsletter_title }}</h2>
+    <p>Written by {{ newsletter.author.email }}</p>
+    <p><strong>Published on {{ newsletter.published_at|date:"F j, Y, g:i a" }}</strong></p>
+    <div class="newsletter-content">
+        <p>{{ newsletter.newsletter_content }}</p>
+    </div>
+    <a href="{% url 'view_submitted_newsletters' %}">Back to Newsletters</a>
+{% endblock %}

@@ -1,0 +1,79 @@
+<!-- templates/news2u/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    News2U - Home
+{% endblock %}
+
+{% block content %}
+
+    <!-- Banner Section -->
+    <div
+    class="banner"
+    style="background-image: url('{% static 'news2u/images/banner-bg.jpeg' %}');">
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1>Welcome to News2U</h1>
+                <p>Your trusted source for quality journalism</p>
+                <a href="{% url 'register' %}"
+                class="banner-button">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Homepage content -->
+
+<div class="article-grid">
+    {% for article in articles %}
+        {% if article.status == 'published_independent' or article.status == 'published_publisher' %}
+            <div class="article-item">
+                <h3 style="text-align: left;">
+                    {{ article.article_title }}
+                </h3>
+                <p class="date">
+                    <strong>
+                        {{ article.published_at|date:"F j, Y" }}
+                    </strong>
+                </p>
+                <p class="author">
+                    By {{ article.journalist.journalist_name }}
+                {% if article.publisher %}
+                    <p>
+                        <em>Publication House:
+                        {{ article.publisher.publisher_name }}</em>
+                    </p>
+                {% else %}
+                    <p>
+                        <em>Independently Published</em></p>
+                {% endif %}
+                <hr/>
+
+                <p>{{ article.article_preview }}</p>
+
+                {% if article.article_photo %}
+                    <a href="{% url 'view_published_article' article.id %}">
+                        <img class="thumbnail"
+                             alt="{{ article.article_title }}"
+                             src="{{ article.article_photo.url }}">
+                    </a>
+                {% else %}
+                    <p>[No image]</p>
+                {% endif %}
+                <br/>
+
+                <a href="{% url 'view_published_article' article.id %}">
+                    Read More
+                </a>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>No published articles found.</p>
+    {% endfor %}
+</div>
+    <div style="text-align: left;">
+        <a style="display: inline-block; margin: 30px 0"
+        href="{% url 'register' %}" class="button">Register</a>
+    </div>
+{% endblock %}

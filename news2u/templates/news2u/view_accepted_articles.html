@@ -1,0 +1,40 @@
+<!-- templates/news2u/view_accepted_articles.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+    News2U - Accepted
+{% endblock %}
+
+{% block content %}
+    <h2>Articles Accepted for Publication</h2>
+    {% if articles %}
+        <ul class="request-list">
+            <li>
+            {% for article in articles %}
+                    <div class="article-item">
+                        <h3><a href="{% url 'view_edited_article' article.id %}">
+                            {{ article.article_title }}</a></h3>
+                        <p>Written By: {{ article.journalist.journalist_name }}</p>
+                        <p>Edited by: {{ article.editor.editor_name }}</p>
+                        <p>Status: {{ article.get_status_display }}</p>
+                    </div>
+                {% empty %}
+                    <p>No articles have been accepted for publication yet.</p>
+                {% endfor %}
+            </li>
+        </ul>
+    {% else %}
+        <p>No articles have been accepted for publication yet.</p>
+    {% endif %}
+
+    {% if is_editor %}
+        <p>
+            <a href="{% url 'view_requests' %}">Back to Dashboard</a>
+        </p>
+    {% elif is_journalist %}
+        <p>
+            <a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+        </p>
+    {% endif %}
+{% endblock %}

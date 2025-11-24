@@ -1,0 +1,25 @@
+<!-- templates/news2u/accept_article.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Accept Article
+{% endblock %}
+
+{% block content %}
+    <h2>Accept Article</h2>
+    <p>Are you sure you want to accept the article titled "<strong>
+        {{ article.article_title }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+
+        <button
+        type="submit"
+        name="action"
+        value="approve"
+        class="alt-button">Yes, Accept Article</button>
+        <a href="{% url 'view_requests' %}" class="button">Cancel</a>
+    </form>
+{% endblock %}

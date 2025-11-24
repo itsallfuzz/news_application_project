@@ -1,0 +1,49 @@
+<!-- templates/news2u/review_article.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    News2U - Review Article
+{% endblock %}
+
+{% block content %}
+    <h2>Review Article</h2>
+    <p><strong>By:</strong> {{ article.journalist.journalist_name }}</p>
+    <p><strong>Created:</strong> {{ article.submitted_at }}</p>
+    <h3>{{ article.article_title }}</h3>
+    <p>{{ article.article_content }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div>
+            <label for="editor_comments">
+                <strong>Editor Comments:</strong>
+            </label>
+            <br/>
+            <textarea
+                id="editor_comments"
+                name="editor_comments"
+                rows="4"
+                cols="50">{{ article.editor_comments }}
+        </textarea>
+        </div>
+        <br/>
+        <button type="submit"
+                formaction="{% url 'accept_article' article.id %}"
+                class="alt-button">
+                Approve
+        </button>
+        <a href="{% url 'edit_article' article.id %}" class="button">
+                Edit
+            </a>
+        <button type="submit"
+                formaction="{% url 'decline_article' article.id %}"
+                class="button" style="background-color: red;">
+                Revise</button>
+    </form>
+
+    <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

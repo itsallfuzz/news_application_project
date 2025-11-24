@@ -1,0 +1,36 @@
+<!-- templates/news2u/create_newsletter.html -->
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - Create Newsletter
+{% endblock %}
+
+{% block content %}
+<h2>Create New Newsletter</h2>
+<p>
+    <strong>Note:</strong>
+    All newsletters are subject to approval by an editor.
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <br/>
+        <button type="submit" class="button">Create Newsletter</button>
+        <a href="{% url 'journalist_dashboard' %}" class="button">Cancel</a>
+    </form>
+
+{% endblock %}

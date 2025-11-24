@@ -1,0 +1,38 @@
+<!-- templates/news2u/view_all_publishers.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    News2U - All Publishers
+{% endblock %}
+
+{% block content %}
+    <h2>All Publishers</h2>
+    {% if publishers %}
+        <ul class="editor-list">
+            {% for publisher in publishers %}
+                <li>
+                    <h4>{{ publisher.publisher_name }}</h4>
+                    <img src="{{ publisher.publisher_logo.url }}" alt="Publisher Logo" class="publisher-logo"/>
+                    <p><strong>Description: {{ publisher.publisher_description }}</strong></p>
+                        {% if publisher.associated_editors %}
+                        <ul>
+                            {% for publisher in editor.associated_publishers %}
+                            <li>{{ publisher.publisher_name }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                    <p>You have not published via this publisher.</p>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No publishers found.</p>
+    {% endif %}
+    <p>
+        <a href="{% url 'view_my_publishers' %}">Back</a>
+    </p>
+{% endblock %}

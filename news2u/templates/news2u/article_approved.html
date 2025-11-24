@@ -1,0 +1,32 @@
+<!-- templates/news2u/article_approved.html -->
+
+{% extends 'news2u/base.html' %}
+
+{% block content %}
+<p><strong>Status:</strong>
+    ALL articles are subject to the approval by an editor.</p>
+
+<h2>{{ article.article_title }}</h2>
+<p>{{ article.article_content }}</p>
+
+
+<h3>How would you like to publish this article?</h3>
+
+<div class="publication-options">
+    <div class="option">
+        <h4>Publish Independently</h4>
+        <p>Publish under your own name without a publication house</p>
+        <a href="{% url 'publish_independently' article.id %}"
+        class="button">Publish Independently</a>
+    </div>
+
+    <div class="option">
+        <h4>Submit to Publication House</h4>
+        <p>Publish through one of your affiliated publishers</p>
+        <a href="{% url 'submit_to_publisher' article.id %}"
+        class="button">Submit to Publisher</a>
+    </div>
+</div>
+
+<a href="{% url 'journalist_dashboard' %}">Back to Dashboard</a>
+{% endblock %}
