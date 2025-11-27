@@ -46,6 +46,7 @@ urlpatterns = [
      path("reader_dashboard/", views.reader_dashboard,
           name="reader_dashboard"),
 
+
      # Published Articles and Newsletters - ALL Roles
      path("my_published_articles/", views.my_published_articles,
           name="my_published_articles"),
@@ -55,10 +56,6 @@ urlpatterns = [
      # ============================================================
      # CRUD FUNCTIONS
      # ============================================================
-
-     path("create_newsletter/", views.create_newsletter,
-          name="create_newsletter"),
-
 
      # VIEW
      path("view_subscriber_newsletters/",
@@ -76,6 +73,8 @@ urlpatterns = [
      path('article/<int:article_id>/select-editor/',
           views.select_editor,
           name='select_editor'),
+     path("create_newsletter/", views.create_newsletter,
+          name="create_newsletter"),
      path('create_publisher_newsletter/',
           views.create_publisher_newsletter,
           name='create_publisher_newsletter'),
@@ -115,11 +114,13 @@ urlpatterns = [
           views.newsletter_submit_success,
           name="newsletter_submit_success"),
 
+
      # Delete Article
      path('article/<int:article_id>/delete/',
           views.delete_article, name='delete_article'),
      path('newsletter/<int:newsletter_id>/delete/',
           views.delete_newsletter, name='delete_newsletter'),
+
 
      # Publish Article
      path('article/<int:article_id>/publish-independent/',
@@ -149,6 +150,7 @@ urlpatterns = [
      path('publish_newsletter/<int:newsletter_id>/',
           views.publish_newsletter, name='publish_newsletter'),
 
+
      # Editor functions
      path("view_requests/", views.view_requests, name="view_requests"),
      path("review_article/<int:article_id>/",
@@ -175,9 +177,11 @@ urlpatterns = [
           views.view_accepted_newsletters,
           name="view_accepted_newsletters"),
 
+
      # Reader Functions
      path("manage_subscriptions/", views.manage_subscriptions,
           name="manage_subscriptions"),
+
 
      # View Editors, Publishers, Journalists
      path("view_all_editors/", views.view_all_editors,

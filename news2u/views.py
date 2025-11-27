@@ -31,9 +31,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-import requests, requests_oauthlib
 from .functions.tweet import Tweet
-from news2u.functions import tweet
 
 
 # Helper functions to check user roles
@@ -173,7 +171,8 @@ def register_editor(request):
                 )
 
                 # Add to Editor group
-                editor_group, created = Group.objects.get_or_create(name='Editor')
+                editor_group, created = Group.objects.get_or_create(
+                    name='Editor')
                 new_user.groups.add(editor_group)
 
                 Editor.objects.create(
@@ -1281,7 +1280,6 @@ def publish_independent(request, article_id):
         article.publisher = None  # No publisher for independent
         article.save()
 
-
         # Send email to subscribers
         send_article_email(article)
 
@@ -1645,13 +1643,12 @@ def accept_article(request, article_id):
     editor_comments = request.POST.get(
         'editor_comments', article.editor_comments or '')
 
-
     return render(
         request,
         'news2u/accept_article.html',
-        {'article': article,
-        'editor_comments': editor_comments}
-        )
+            {'article': article,
+            'editor_comments': editor_comments}
+            )
 
 
 # View Accepted Articles
